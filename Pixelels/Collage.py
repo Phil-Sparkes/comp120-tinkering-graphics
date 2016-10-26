@@ -5,17 +5,26 @@ from pygame.locals import *
 #Pretty much most the keyboard now
 #Look at the end to see what key relates to which function
 
-Picture = pygame.image.load("Parrots.jpeg") #Just change the image name to use different images
+Picture = pygame.image.load("PhoenixCol.png") #Just change the image name to use different images
+Picture2 = pygame.image.load("GodotCol.png") # Used for collage
 Running = True
 pygame.init()
+
+PictureScale = 80             # Used in the collage
+PictureScale2 = PictureScale
+PictureScale3 = 0
+ColourManip = 1
+
 
 Width = 1280   #Change these depending on the picture
 Height = 720
 
 Screen = pygame.display.set_mode((Width, Height))
-Picture =pygame.transform.scale(Picture, (Width,Height))   #Scales the picture to fit the screen
+#Picture =pygame.transform.scale(Picture, (Width,Height))   #Scales the picture to fit the screen
+Picture =pygame.transform.scale(Picture, (PictureScale,PictureScale))     #Used for Collage
+Picture2 =pygame.transform.scale(Picture2, (PictureScale,PictureScale))   #Used for Collage
 Screen.blit(Picture, (0, 0))
-
+Screen.blit(Picture2, (PictureScale, 0))                                  #Used for Collage
 pygame.display.update()
 
 PXArray = pygame.PixelArray(Screen)
@@ -478,6 +487,16 @@ while Running:
             RainbowMatrixStyleZ()
         if event.type == KEYDOWN and event.key == K_n:
             Mirrors()
+        if event.type == KEYDOWN and event.key == K_b:
+            while PictureScale3 != Height:
+                PictureScale2 = PhoenixCol(PictureScale2)
+                pygame.display.update()
+                if PictureScale2 == Width/2:
+                    PictureScale2 = 0
+                    PictureScale3 = PictureScale3 + PictureScale
+                    ColourManip = ColourManip + 0.2
+                    print ColourManip
+                    print PictureScale3
         pygame.display.update()
 pygame.quit()
 sys.exit()
