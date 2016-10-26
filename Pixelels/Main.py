@@ -423,22 +423,6 @@ def Mirrors():
             Blue = Screen.get_at((X, Y)).b
             PXArray[Width - X - 1, Y] = (Red, Green, Blue)
 
-
-#Makes a Collage
-def PhoenixCol(PictureScale2):
-    TargetX=0
-
-    for X in xrange(PictureScale*2):
-        TargetY = 0
-        for Y in xrange(PictureScale):
-            Red = Screen.get_at((X, Y)).r
-            Green = Screen.get_at((X, Y)).g
-            Blue = Screen.get_at((X, Y)).b
-            PXArray[TargetX + (PictureScale2 * 2), TargetY + PictureScale3] = (Red - Red/ColourManip, Green, Blue/ColourManip)
-            TargetY = TargetY + 1
-        TargetX = TargetX + 1
-    PictureScale2 = PictureScale2 + PictureScale
-    return PictureScale2
 #Press the keys and it does stuff
 while Running:
     for event in pygame.event.get():

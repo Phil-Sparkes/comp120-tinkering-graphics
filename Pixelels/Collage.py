@@ -495,8 +495,6 @@ while Running:
                     PictureScale2 = 0
                     PictureScale3 = PictureScale3 + PictureScale
                     ColourManip = ColourManip + 0.2
-                    print ColourManip
-                    print PictureScale3
         pygame.display.update()
 pygame.quit()
 sys.exit()
