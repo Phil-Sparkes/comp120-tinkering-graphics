@@ -1,7 +1,7 @@
 import pygame, sys, math
 from pygame.locals import *
 
-#key I, G, R, L, W, S, C, P, Q, E, K, Z, F, X
+#key I, G, R, L, W, S, C, P, Q, E, K, Z, F, X, M, Z, N
 #Pretty much most the keyboard now
 #Look at the end to see what key relates to which function
 
