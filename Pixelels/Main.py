@@ -25,7 +25,7 @@ Black = (0,0,0)
 Brown = (150, 80, 50)
 
 
-"""Funcitons - Look at the end to see what key relates to which function"""
+"""Functions - Look at the end to see what key relates to which function"""
 
 def invert():
     """ Inverts the colours of the current picture"""
@@ -543,12 +543,12 @@ def rainbow_matrix_style_z(Tolerance):
 
 
 
-def mirrors():
+def Mirrors():
     """Mirrors the image along the vertical axis"""
-    MirrorPoint = Width/2
+    MirrorPointWidth = Width/2
 
     for Y in xrange(Height):
-        for X in xrange(MirrorPoint):
+        for X in xrange(MirrorPointWidth):
 
             # Gets the RGB Values of the pixel
             Red = screen.get_at((X, Y)).r
@@ -557,6 +557,61 @@ def mirrors():
 
             # Updates the Pixel Array
             PXArray[Width - X - 1, Y] = (Red, Green, Blue)
+
+
+def HorizontalMirror():
+    """"Mirrors the image along the horizontal axis"""
+    MirrorPointHeight = Height / 2
+
+    for Y in xrange(MirrorPointHeight):
+        for X in xrange(Width):
+
+            # Gets the RGB Values of the pixel
+            Red = screen.get_at((X, Y)).r
+            Green = screen.get_at((X, Y)).g
+            Blue = screen.get_at((X, Y)).b
+
+            # Updates the Pixel Array
+            PXArray[X, Height - Y - 1] = (Red, Green, Blue)
+
+def PixelatedWaterReflection():
+    """"Mirrors the image along the horizontal axis"""
+    MirrorPointHeight = Height / 2
+    WaveAmount = 0
+    WaveToggle = False
+
+    for Y in xrange(MirrorPointHeight):
+        for X in xrange(Width):
+            # Gets the RGB Values of the pixel
+            Red = screen.get_at((X, Y)).r
+            Green = screen.get_at((X, Y)).g
+            Blue = screen.get_at((X, Y)).b
+
+            # Updates the Pixel Array
+            PXArray[X, Height - Y - 1] = (Red, Green, Blue)
+
+    for Y in xrange(MirrorPointHeight):
+        for X in xrange(Width - 20):
+            # Gets the RGB Values of the pixel
+            Red = screen.get_at((X, Y)).r
+            Green = screen.get_at((X, Y)).g
+            Blue = screen.get_at((X, Y)).b
+
+            # Updates the Pixel Array
+            PXArray[X  + WaveAmount, Height - Y - 1] = (Red, Green, Blue)
+            if WaveToggle:
+                WaveAmount -= 1
+            else:
+                WaveAmount += 1
+            if WaveAmount == 11:
+                WaveToggle = True
+            elif WaveAmount == -11:
+                WaveToggle = False
+
+
+
+
+
 
 
 
@@ -598,7 +653,11 @@ while Running:
         if event.type == KEYDOWN and event.key == K_z:
             rainbow_matrix_style_z(80)                  # Tolerance, value between 0 and 255. 80 is good number for parrot
         if event.type == KEYDOWN and event.key == K_n:
-            mirrors()
+            Mirrors()
+        if event.type == KEYDOWN and event.key == K_b:
+            HorizontalMirror()
+        if event.type == KEYDOWN and event.key == K_h:
+            PixelatedWaterReflection()
         pygame.display.update()
 
 pygame.quit()
