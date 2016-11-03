@@ -3,16 +3,20 @@ import sys
 import math
 from pygame.locals import *
 
-
-Picture = pygame.image.load("Parrots.jpeg") # Change the image name to use different images
+# Change the image name to use different images
+Picture = pygame.image.load("Parrots.jpeg")
 Running = True
 pygame.init()
 
-Width = 1280   # Change these depending on the picture
+# Change these depending on the picture
+Width = 1280
 Height = 720
 
 screen = pygame.display.set_mode((Width, Height))
-Picture =pygame.transform.scale(Picture, (Width,Height))   # Scales the picture to fit the screen
+
+# Scales the picture to fit the screen
+Picture =pygame.transform.scale(Picture, (Width,Height))
+
 screen.blit(Picture, (0, 0))
 
 pygame.display.update()
