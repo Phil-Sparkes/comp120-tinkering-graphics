@@ -698,6 +698,9 @@ while Running:
         if event.type == KEYDOWN and event.key == K_h:
             PixelatedWaterReflection()
         if event.type == KEYDOWN and event.key == K_o:
+            PictureScale2 = 80
+            PictureScale3 = 0
+            ColourManip = 1
             while PictureScale3 != Height:
                 PictureScale2 = phoenix_col(PictureScale2)
                 pygame.display.update()
