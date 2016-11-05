@@ -3,16 +3,35 @@ import sys
 import math
 from pygame.locals import *
 
+# Images
+Picture = pygame.image.load("Parrots.jpeg")
+Picture2 = pygame.image.load("PhoenixCol.png")
+Picture3 = pygame.image.load("GodotCol.png")
+Picture4 = pygame.image.load("Animu.png")
+Picture5 = pygame.image.load("MonaLisa.jpg")
+Picture6 = pygame.image.load("Stars.jpg")
 
-Picture = pygame.image.load("Parrots.jpeg") # Change the image name to use different images
 Running = True
 pygame.init()
 
-Width = 1280   # Change these depending on the picture
+# Used in the collage
+PictureScale = 80
+PictureScale2 = PictureScale
+PictureScale3 = 0
+ColourManip = 1
+
+# Change these depending on the picture
+Width = 1280
 Height = 720
 
 screen = pygame.display.set_mode((Width, Height))
-Picture =pygame.transform.scale(Picture, (Width,Height))   # Scales the picture to fit the screen
+
+# Scales the pictures to fit the screen
+Picture = pygame.transform.scale(Picture, (Width,Height))
+Picture4 = pygame.transform.scale(Picture4, (Width,Height))
+Picture2 = pygame.transform.scale(Picture2, (PictureScale, PictureScale))
+Picture3 = pygame.transform.scale(Picture3, (PictureScale, PictureScale))
+
 screen.blit(Picture, (0, 0))
 
 pygame.display.update()
@@ -608,7 +627,27 @@ def PixelatedWaterReflection():
             elif WaveAmount == -11:
                 WaveToggle = False
 
+def phoenix_col(PictureScale2):
+    """Makes a collage"""
+    TargetX = 0
+    for X in xrange(PictureScale * 2):
+        TargetY = 0
+        for Y in xrange(PictureScale):
+            Red = screen.get_at((X, Y)).r
+            Green = screen.get_at((X, Y)).g
+            Blue = screen.get_at((X, Y)).b
+            PXArray[TargetX + (PictureScale2 * 2), TargetY + PictureScale3] = (
+            Red - Red / ColourManip, Green, Blue / ColourManip)
+            TargetY = TargetY + 1
+        TargetX = TargetX + 1
+    PictureScale2 = PictureScale2 + PictureScale
+    return PictureScale2
 
+def change_picture(PicChange):
+    """Changes the current picture displayed"""
+    screen.fill(Black)
+    screen.blit(PicChange, (0, 0))
+    pygame.display.update()
 
 
 
@@ -658,6 +697,37 @@ while Running:
             HorizontalMirror()
         if event.type == KEYDOWN and event.key == K_h:
             PixelatedWaterReflection()
+        if event.type == KEYDOWN and event.key == K_o:
+            while PictureScale3 != Height:
+                PictureScale2 = phoenix_col(PictureScale2)
+                pygame.display.update()
+                if PictureScale2 == Width / 2:
+                    PictureScale2 = 0
+                    PictureScale3 = PictureScale3 + PictureScale
+                    ColourManip = ColourManip + 0.2
+        if event.type == KEYDOWN and event.key == K_1:
+            del PXArray
+            change_picture(Picture)
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_2:
+            del PXArray
+            screen.fill(Black)
+            screen.blit(Picture2, (0, 0))
+            screen.blit(Picture3, (PictureScale, 0))
+            pygame.display.update()
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_3:
+            del PXArray
+            change_picture(Picture4)
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_4:
+            del PXArray
+            change_picture(Picture5)
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_5:
+            del PXArray
+            change_picture(Picture6)
+            PXArray = pygame.PixelArray(screen)
         pygame.display.update()
 
 pygame.quit()
