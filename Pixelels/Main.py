@@ -15,8 +15,8 @@ Running = True
 pygame.init()
 
 # Used in the collage
-PictureScale = 80
-PictureScale2 = PictureScale
+PictureScale1 = 80
+PictureScale2 = PictureScale1
 PictureScale3 = 0
 ColourManip = 1
 
@@ -27,10 +27,10 @@ Height = 720
 screen = pygame.display.set_mode((Width, Height))
 
 # Scales the pictures to fit the screen
-Picture = pygame.transform.scale(Picture, (Width,Height))
-Picture4 = pygame.transform.scale(Picture4, (Width,Height))
-Picture2 = pygame.transform.scale(Picture2, (PictureScale, PictureScale))
-Picture3 = pygame.transform.scale(Picture3, (PictureScale, PictureScale))
+Picture = pygame.transform.scale(Picture, (Width, Height))
+Picture4 = pygame.transform.scale(Picture4, (Width, Height))
+Picture2 = pygame.transform.scale(Picture2, (PictureScale1, PictureScale1))
+Picture3 = pygame.transform.scale(Picture3, (PictureScale1, PictureScale1))
 
 screen.blit(Picture, (0, 0))
 
@@ -39,12 +39,13 @@ pygame.display.update()
 PXArray = pygame.PixelArray(screen)
 
 # Defining some colours for later use
-White = (255, 255, 255)
-Black = (0,0,0)
-Brown = (150, 80, 50)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BROWN = (150, 80, 50)
 
 
 """Functions - Look at the end to see what key relates to which function"""
+
 
 def invert():
     """ Inverts the colours of the current picture"""
@@ -52,35 +53,33 @@ def invert():
         for X in range(0, Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Inverts the value
-            Red = 255 - Red
-            Green = 255 - Green
-            Blue = 255 - Blue
+            red = 255 - red
+            green = 255 - green
+            blue = 255 - blue
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red, Green, Blue)
-
+            PXArray[X, Y] = (red, green, blue)
 
 
 def grey_scale():
-    """ GreyScales the current picture"""
+    """ greyScales the current picture"""
     for Y in xrange(Height):
         for X in xrange(Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            Grey = (Red + Green + Blue)/3
+            grey = (red + green + blue)/3
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Grey, Grey, Grey)
-
+            PXArray[X, Y] = (grey, grey, grey)
 
 
 def less_red():
@@ -89,334 +88,322 @@ def less_red():
         for X in xrange(Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red/2, Green, Blue)
-
+            PXArray[X, Y] = (red/2, green, blue)
 
 
 def grey_gradient():
     """ Creates a grey gradient effect"""
-    ColourChange = 0
-    Gradient = 1.25
+    colour_change = 0
+    gradient = 1.25
 
-    for X in xrange (Width):
-        for Y in xrange (Height):
+    for X in xrange(Width):
+        for Y in xrange(Height):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            # Gives new RGB values of ColourChange and Half of ColourChange if the current RGB value is below a cetain threshold
-            if Red > 25 and Green > 25 and Blue > 25:
-                Red =  ColourChange/2
-                Green = ColourChange/2
-                Blue =  ColourChange/2
+            # Gives new RGB values of colour_change and Half of colour_change if the current RGB value is below a cetain threshold
+            if red > 25 and green > 25 and blue > 25:
+                red = colour_change/2
+                green = colour_change/2
+                blue = colour_change/2
             else:
-                Red = ColourChange
-                Green = ColourChange
-                Blue = ColourChange
+                red = colour_change
+                green = colour_change
+                blue = colour_change
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red, Green, Blue)
+            PXArray[X, Y] = (red, green, blue)
 
-        # Increments the ColourChange by the current gradient
-        ColourChange += Gradient
+        # Increments the colour_change by the current gradient
+        colour_change += gradient
 
-        # When the ColourChanges reaches the total range of colours it flips the gradient to reverse the process
-        if ColourChange == 255 or ColourChange == 0:
-            Gradient *= -1
-
+        # When the colour_changes reaches the total range of colours it flips the gradient to reverse the process
+        if colour_change == 255 or colour_change == 0:
+            gradient *= -1
 
 
 def wood_texture():
     """Creates an interesting texture that resembles wood or rain in some images"""
-    ColourChange = 0
+    colour_change = 0
 
-    for X in xrange (Width):
-        for Y in xrange (Height):
+    for X in xrange(Width):
+        for Y in xrange(Height):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-
-            if Red > 25 and Green > 25 and Blue > 25:
-                ColourChange += 1
-                Red += ColourChange
-                Green += ColourChange
-                Blue += ColourChange
+            if red > 25 and green > 25 and blue > 25:
+                colour_change += 1
+                red += colour_change
+                green += colour_change
+                blue += colour_change
             else:
-                ColourChange -= 1
-                Red -= ColourChange
-                Green -= ColourChange
-                Blue -= ColourChange
+                colour_change -= 1
+                red -= colour_change
+                green -= colour_change
+                blue -= colour_change
 
-            # When ColourChange hits a certain value this will reset it
-            if ColourChange > 150:
-                ColourChange = 0
-            elif ColourChange < 0:
-                ColourChange = 150
+            # When colour_change hits a certain value this will reset it
+            if colour_change > 150:
+                colour_change = 0
+            elif colour_change < 0:
+                colour_change = 150
 
             # Makes sure that the RGB Values dont exceed the allowed range
-            if Red > 255:
-                Red = 255
-            elif Red < 0:
-                Red = 0
+            if red > 255:
+                red = 255
+            elif red < 0:
+                red = 0
 
-            if Green > 255:
-                Green = 255
-            elif Green < 0:
-                Green = 0
+            if green > 255:
+                green = 255
+            elif green < 0:
+                green = 0
 
-            if Blue > 255:
-                Blue = 255
-            elif Blue < 0:
-                Blue = 0
+            if blue > 255:
+                blue = 255
+            elif blue < 0:
+                blue = 0
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red, Green, Blue)
-
+            PXArray[X, Y] = (red, green, blue)
 
 
 def ghost_effect():
     """Creates a white fade effect that looks ghostly on certain pictures"""
-    ColourChange = 0
+    colour_change = 0
 
-    for X in xrange (Width):
-        for Y in xrange (Height):
+    for X in xrange(Width):
+        for Y in xrange(Height):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            if Red > 25 and Green > 25 and Blue > 25:
-                ColourChange += 1
+            if red > 25 and green > 25 and blue > 25:
+                colour_change += 1
             else:
-                ColourChange -= 1
+                colour_change -= 1
 
-            Red += ColourChange
-            Green += ColourChange
-            Blue += ColourChange
+            red += colour_change
+            green += colour_change
+            blue += colour_change
 
-            # When ColourChange hits a certain value this will stop it exceeding the value
-            if ColourChange > 150:
-                ColourChange = 150
-            if ColourChange < -100:
-                ColourChange = -100
+            # When colour_change hits a certain value this will stop it exceeding the value
+            if colour_change > 150:
+                colour_change = 150
+            if colour_change < -100:
+                colour_change = -100
 
             # Makes sure that the RGB Values dont exceed the allowed range
-            if Red > 255:
-                Red = 255
-            elif Red < 0:
-                Red = 0
-            if Green > 255:
-                Green = 255
-            elif Green < 0:
-                Green = 0
-            if Blue > 255:
-                Blue = 255
-            elif Blue < 0:
-                Blue = 0
+            if red > 255:
+                red = 255
+            elif red < 0:
+                red = 0
+            if green > 255:
+                green = 255
+            elif green < 0:
+                green = 0
+            if blue > 255:
+                blue = 255
+            elif blue < 0:
+                blue = 0
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red, Green, Blue)
+            PXArray[X, Y] = (red, green, blue)
 
 
+def colour_distance_check(colour1, colour2, tolerance):
+    """Checks the distance between two colours, if the colours are within the tolerance it will return true"""
 
-def colour_distance_check(Colour1, Colour2, Tolerance):
-   """Checks the distance between two colours, if the colours are within the tolerance it will return true"""
+    (red1, green1, blue1) = colour1
+    (red2, green2, blue2) = colour2
 
-   (Red1, Green1, Blue1) = Colour1
-   (Red2, Green2, Blue2) = Colour2
+    # Colour distance equation
+    colour_distance = math.sqrt(((red1 - red2) ** 2) + ((green1 - green2) ** 2) + ((blue1 - blue2) ** 2))
 
-   # Colour distance equation
-   ColourDistance = math.sqrt(((Red1 - Red2) ** 2) + ((Green1 - Green2) ** 2) + ((Blue1 - Blue2) ** 2))
-
-   if ColourDistance < Tolerance:
-       return True
-   else:
-       return False
-
+    if colour_distance < tolerance:
+        return True
+    else:
+        return False
 
 
-def close_enough(Colour):
+def close_enough(colour):
     """If a pixel is close to input Colour (set to brown currently) it will half the red value of that pixel"""
     for Y in range(0, Height):
         for X in range(0, Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            CurrentColour = (Red, Green, Blue)
+            current_colour = (red, green, blue)
 
-            CloseBrown = colour_distance_check(CurrentColour,Colour, 150)
+            close_brown = colour_distance_check(current_colour, colour, 150)
 
-            if CloseBrown:
-                PXArray[X, Y] = ((Red / 2), Green, Blue)
+            if close_brown:
+                PXArray[X, Y] = ((red / 2), green, blue)
             else:
-                PXArray[X, Y] = (Red, Green, Blue)
+                PXArray[X, Y] = (red, green, blue)
 
 
-
-def posterize(ColourVariance):
-    """Posterizes the picture, level of Posterizsation depends on the ColourVariance"""
-    ColourVariance = (255 / ColourVariance)
+def posterize(colour_variance):
+    """Posterizes the picture, level of Posterizsation depends on the colour_variance"""
+    colour_variance = (255 / colour_variance)
 
     for Y in range(0, Height):
         for X in range(0, Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Runs the Posterize function for each different colour
-            Red = colour_posterize(Red, ColourVariance)
-            Green = colour_posterize(Green, ColourVariance)
-            Blue = colour_posterize(Blue, ColourVariance)
+            red = colour_posterize(red, colour_variance)
+            green = colour_posterize(green, colour_variance)
+            blue = colour_posterize(blue, colour_variance)
 
             # Updates the Pixel Array
-            PXArray[X, Y] = (Red, Green, Blue)
+            PXArray[X, Y] = (red, green, blue)
 
 
-
-def colour_posterize(Colour,ColourVariance):
+def colour_posterize(colour, colour_variance):
     """Posterizes each colour, Used in the Posterize function"""
-    ColourCounter = 255
+    colour_counter = 255
 
     while True:
-        if ColourCounter < 0:
-            ColourCounter = 0
-        if Colour >= ColourCounter:
-            return ColourCounter
+        if colour_counter < 0:
+            colour_counter = 0
+        if colour >= colour_counter:
+            return colour_counter
         else:
-            ColourCounter = ColourCounter - ColourVariance
-
+            colour_counter = colour_counter - colour_variance
 
 
 def sepia_tint():
     """Creates a sepia tone effect"""
     grey_scale()
 
-    for X in xrange (Width):
-        for Y in xrange (Height):
+    for X in xrange(Width):
+        for Y in xrange(Height):
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            if Red <63:
-                Red = Red * 1.1
-                Blue = Blue * 0.9
-            if Red > 62 and Red <192:
-                Red = Red * 1.15
-                Blue = Blue * 0.85
-            if Red > 191:
-                Red = Red * 1.08
-                if Red > 255:
-                    Red = 255
-                Blue = Blue *0.93
+            if red < 63:
+                red *= 1.1
+                blue *= 0.9
+            if 62 < red < 192:
+                red *= 1.15
+                blue *= 0.85
+            if red > 191:
+                red *= 1.08
+                if red > 255:
+                    red = 255
+                blue *= 0.93
 
-            PXArray[X, Y] = (Red, Green, Blue)
-
+            PXArray[X, Y] = (red, green, blue)
 
 
 def draw_edges():
     """Checks the difference between two pixels, if the difference is high the result will be a black pixel
     if there is no difference it will result in a white pixel. anywhere inbetween will be different shades of grey
     """
-    for X in xrange (Width - 1):
-        for Y in xrange (Height - 1):
+    for X in xrange(Width - 1):
+        for Y in xrange(Height - 1):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            PixelSum = (Red + Green + Blue)
+            pixel_sum = (red + green + blue)
 
             # Gets the RGB Values of the next pixel
-            Red2 = screen.get_at((X + 1, Y )).r
-            Green2 = screen.get_at((X + 1, Y )).g
-            Blue2 = screen.get_at((X + 1, Y)).b
+            red2 = screen.get_at((X + 1, Y)).r
+            green2 = screen.get_at((X + 1, Y)).g
+            blue2 = screen.get_at((X + 1, Y)).b
 
-            NextPixelSum = (Red2 + Green2 + Blue2)
+            next_pixel_sum = (red2 + green2 + blue2)
 
             # Calculates the difference between the two pixel sums
-            Difference = NextPixelSum - PixelSum
+            difference = next_pixel_sum - pixel_sum
 
             # Converts negative numbers to positive
-            if Difference < 0:
-                Difference *=  -1
+            if difference < 0:
+                difference *= -1
 
             # Makes sure the difference doesnt exceed the threshold
-            if Difference > 255:
-                Difference = 255
+            if difference > 255:
+                difference = 255
 
             # Inverts the difference value so it draws black lines on a white background instead of white on black
-            Difference = 255 - Difference
+            difference = 255 - difference
 
-            PXArray[X, Y] = (Difference, Difference, Difference)
-
+            PXArray[X, Y] = (difference, difference, difference)
 
 
 def draw_edges_colour():
     """Variation on DrawEdges draws the edges in colour"""
-    for X in xrange (Width - 1):
-        for Y in xrange (Height - 1):
+    for X in xrange(Width - 1):
+        for Y in xrange(Height - 1):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            PixelSum = (Red + Green + Blue)
+            pixel_sum = (red + green + blue)
 
             # Gets the RGB Values of the next pixel
-            Red2 = screen.get_at((X + 1, Y )).r
-            Green2 = screen.get_at((X + 1, Y )).g
-            Blue2 = screen.get_at((X + 1, Y)).b
+            red2 = screen.get_at((X + 1, Y)).r
+            green2 = screen.get_at((X + 1, Y)).g
+            blue2 = screen.get_at((X + 1, Y)).b
 
-            NextPixelSum = (Red2 + Green2 + Blue2)
+            next_pixel_sum = (red2 + green2 + blue2)
 
             # Calculates the difference between the two pixel sums
-            Difference = NextPixelSum - PixelSum
+            difference = next_pixel_sum - pixel_sum
 
             # Converts negative numbers to positive
-            if Difference < 0:
-                Difference *= -1
+            if difference < 0:
+                difference *= -1
 
             # Makes sure the difference doesnt exceed the threshold
-            if Difference > 255:
-                Difference = 255
+            if difference > 255:
+                difference = 255
 
             # Inverts the difference value so it draws black lines on a white background instead of white on black
-            Difference = 255 - Difference
+            difference = 255 - difference
 
             # Adds the difference onto the current RGB Values
-            Red += Difference
-            Green += Difference
-            Blue += Difference
+            red += difference
+            green += difference
+            blue += difference
 
             # Makes sure the RGB values don't exceed the limit
-            if Red > 255:
-                Red = 255
-            if Green > 255:
-                Green = 255
-            if Blue > 255:
-                Blue = 255
+            if red > 255:
+                red = 255
+            if green > 255:
+                green = 255
+            if blue > 255:
+                blue = 255
 
-            PXArray[X, Y] = (Red, Green, Blue)
-
+            PXArray[X, Y] = (red, green, blue)
 
 
 def cel_shade():
@@ -426,232 +413,234 @@ def cel_shade():
         for Y in xrange(Height - 1):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            PixelSum = (Red + Green + Blue)
+            pixel_sum = (red + green + blue)
 
             # Gets the RGB Values of the next pixel
-            Red2 = screen.get_at((X + 1, Y)).r
-            Green2 = screen.get_at((X + 1, Y)).g
-            Blue2 = screen.get_at((X + 1, Y)).b
+            red2 = screen.get_at((X + 1, Y)).r
+            green2 = screen.get_at((X + 1, Y)).g
+            blue2 = screen.get_at((X + 1, Y)).b
 
-            NextPixelSum = (Red2 + Green2 + Blue2)
+            next_pixel_sum = (red2 + green2 + blue2)
 
             # Calculates the difference between the two pixel sums
-            Difference = NextPixelSum - PixelSum
+            difference = next_pixel_sum - pixel_sum
 
             # Converts negative numbers to positive
-            if Difference < 0:
-                Difference *= -1
+            if difference < 0:
+                difference *= -1
 
             # Makes sure the difference doesnt exceed the threshold
-            if Difference > 255:
-                Difference = 255
+            if difference > 255:
+                difference = 255
 
             # Subtracts the difference from all the RGB Values
-            Red -= Difference
-            Green -= Difference
-            Blue -= Difference
+            red -= difference
+            green -= difference
+            blue -= difference
 
             # Makes sure that no RGB values are less than 0
-            if Red < 0:
-                Red = 0
-            if Green < 0:
-                Green = 0
-            if Blue < 0:
-                Blue = 0
+            if red < 0:
+                red = 0
+            if green < 0:
+                green = 0
+            if blue < 0:
+                blue = 0
 
-            PXArray[X, Y] = (Red, Green, Blue)
+            PXArray[X, Y] = (red, green, blue)
 
 
-
-def rainbow_matrix_style(Tolerance):
+def rainbow_matrix_style(tolerance):
     """Creates an interesting result, takes the argument tolerance"""
-    Counter = 0
+    counter = 0
 
     for X in xrange(Width):
         for Y in xrange(Height):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
-            PixelSum = (Red + Blue + Green)/3
+            pixel_sum = (red + blue + green)/3
 
             # Checks the sum of the pixels against the tolerance, if the sum is higher than the tolerance then the counter is incremented by 1
-            if PixelSum > Tolerance:
-                Counter += 1
+            if pixel_sum > tolerance:
+                counter += 1
 
             # Resets the counter when it reaches 3
-            if Counter == 3:
-                Counter = 0
+            if counter == 3:
+                counter = 0
 
-            # When the Counter is 0 it will only draw the red pixel
-            # When the Counter is 1 it will only draw the green pixel
-            # When the Counter is 2 it will only draw the blue pixel
-            if Counter == 0:
-                PXArray[X, Y] = (Red, 0, 0)
-            elif Counter == 1:
-                PXArray[X, Y] = (0, Green, 0)
-            elif Counter == 2:
-                PXArray[X, Y] = (0, 0, Blue)
+            # When the counter is 0 it will only draw the red pixel
+            # When the counter is 1 it will only draw the green pixel
+            # When the counter is 2 it will only draw the blue pixel
+            if counter == 0:
+                PXArray[X, Y] = (red, 0, 0)
+            elif counter == 1:
+                PXArray[X, Y] = (0, green, 0)
+            elif counter == 2:
+                PXArray[X, Y] = (0, 0, blue)
 
 
-
-def rainbow_matrix_style_fill(Tolerance):
+def rainbow_matrix_style_fill(tolerance):
     """Variation on rainbow_matrix_style in which it fills a lot of the blanks"""
-    rainbow_matrix_style(Tolerance)
-
+    rainbow_matrix_style(tolerance)
+    red = 0
+    green = 0
+    blue = 0
     for Y in xrange(Height):
         for X in xrange(Width):
 
-            Counter = 0
-            ColourNotFound = True
+            counter = 0
+            colour_not_found = True
 
-            while ColourNotFound:
-                if X - Counter >= 0:
-                    Red = screen.get_at((X - Counter, Y)).r
-                    Green = screen.get_at((X - Counter, Y)).g
-                    Blue = screen.get_at((X - Counter, Y)).b
+            while colour_not_found:
+                if X - counter >= 0:
+                    red = screen.get_at((X - counter, Y)).r
+                    green = screen.get_at((X - counter, Y)).g
+                    blue = screen.get_at((X - counter, Y)).b
 
-                    Colour = (Red + Green + Blue)/3
-                    if Colour < 25: # This number can change a lot, wouldnt go higher than 50 though
-                        Counter = Counter + 1
+                    colour = (red + green + blue)/3
+
+                    # This number can change a lot, wouldnt go higher than 50 though
+                    if colour < 25:
+                        counter += 1
                     else:
-                        ColourNotFound = False
+                        colour_not_found = False
                 else:
-                    ColourNotFound = False
-            while Counter > 0:
+                    colour_not_found = False
+            while counter > 0:
 
-                if X - Counter >= 0:
-                    PXArray[X - Counter, Y] = (Red, Green, Blue)
-                Counter = Counter - 1
+                if X - counter >= 0:
+                    PXArray[X - counter, Y] = (red, green, blue)
+                counter -= 1
 
 
-
-def rainbow_matrix_style_z(Tolerance):
+def rainbow_matrix_style_z(tolerance):
     """Another variation of rainbow_matrix_style, drags the pixels to the left"""
-    rainbow_matrix_style(Tolerance)
-
+    rainbow_matrix_style(tolerance)
+    red = 0
+    green = 0
+    blue = 0
     for Y in xrange(Height):
         for X in xrange(Width):
 
-            Counter = 0
-            ColourNotFound = True
+            counter = 0
+            colour_not_found = True
 
-            while ColourNotFound:
-                if X - Counter >= 0:
-                    Red = screen.get_at((X - Counter, Y)).r
-                    Green = screen.get_at((X - Counter, Y)).g
-                    Blue = screen.get_at((X - Counter, Y)).b
+            while colour_not_found:
+                if X - counter >= 0:
+                    red = screen.get_at((X - counter, Y)).r
+                    green = screen.get_at((X - counter, Y)).g
+                    blue = screen.get_at((X - counter, Y)).b
 
-                    Colour = (Red + Green + Blue)/3
-                    if Colour > 30:  # This number can change a lot, wouldnt go higher than 50 though
-                        Counter = Counter + 4  # Changing this number does fun stuff (0-5 reconmended)
+                    colour = (red + green + blue)/3
+                    # This number can change a lot, wouldnt go higher than 50 though
+                    if colour > 30:
+                        # Changing this number does fun stuff (0-5 reconmended)
+                        counter += 4
 
-                while Counter > 0:
+                while counter > 0:
 
-                    if X - Counter >= 0:
-                        PXArray[X - Counter, Y] = (Red, Green, Blue)
-                    Counter = Counter - 1
+                    if X - counter >= 0:
+                        PXArray[X - counter, Y] = (red, green, blue)
+                    counter -= 1
                 else:
-                    ColourNotFound = False
+                    colour_not_found = False
 
 
-
-def Mirrors():
+def mirrors():
     """Mirrors the image along the vertical axis"""
-    MirrorPointWidth = Width/2
+    mirror_point_width = Width/2
 
     for Y in xrange(Height):
-        for X in xrange(MirrorPointWidth):
+        for X in xrange(mirror_point_width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Updates the Pixel Array
-            PXArray[Width - X - 1, Y] = (Red, Green, Blue)
+            PXArray[Width - X - 1, Y] = (red, green, blue)
 
 
-def HorizontalMirror():
+def horizontal_mirror():
     """"Mirrors the image along the horizontal axis"""
-    MirrorPointHeight = Height / 2
+    mirror_point_height = Height / 2
 
-    for Y in xrange(MirrorPointHeight):
+    for Y in xrange(mirror_point_height):
         for X in xrange(Width):
 
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Updates the Pixel Array
-            PXArray[X, Height - Y - 1] = (Red, Green, Blue)
+            PXArray[X, Height - Y - 1] = (red, green, blue)
 
-def PixelatedWaterReflection():
-    """"Mirrors the image along the horizontal axis"""
-    MirrorPointHeight = Height / 2
-    WaveAmount = 0
-    WaveToggle = False
 
-    for Y in xrange(MirrorPointHeight):
+def pixelated_water_reflection():
+    """"Mirrors the image along the horizontal axis with a water effect"""
+    mirror_point_height = Height / 2
+    wave_amount = 0
+    wave_toggle = False
+
+    for Y in xrange(mirror_point_height):
         for X in xrange(Width):
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Updates the Pixel Array
-            PXArray[X, Height - Y - 1] = (Red, Green, Blue)
+            PXArray[X, Height - Y - 1] = (red, green, blue)
 
-    for Y in xrange(MirrorPointHeight):
+    for Y in xrange(mirror_point_height):
         for X in xrange(Width - 20):
             # Gets the RGB Values of the pixel
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
 
             # Updates the Pixel Array
-            PXArray[X  + WaveAmount, Height - Y - 1] = (Red, Green, Blue)
-            if WaveToggle:
-                WaveAmount -= 1
+            PXArray[X + wave_amount, Height - Y - 1] = (red, green, blue)
+            if wave_toggle:
+                wave_amount -= 1
             else:
-                WaveAmount += 1
-            if WaveAmount == 11:
-                WaveToggle = True
-            elif WaveAmount == -11:
-                WaveToggle = False
+                wave_amount += 1
+            if wave_amount == 11:
+                wave_toggle = True
+            elif wave_amount == -11:
+                wave_toggle = False
 
-def phoenix_col(PictureScale2):
+
+def phoenix_col(picture_scale2):
     """Makes a collage"""
-    TargetX = 0
-    for X in xrange(PictureScale * 2):
-        TargetY = 0
-        for Y in xrange(PictureScale):
-            Red = screen.get_at((X, Y)).r
-            Green = screen.get_at((X, Y)).g
-            Blue = screen.get_at((X, Y)).b
-            PXArray[TargetX + (PictureScale2 * 2), TargetY + PictureScale3] = (
-            Red - Red / ColourManip, Green, Blue / ColourManip)
-            TargetY = TargetY + 1
-        TargetX = TargetX + 1
-    PictureScale2 = PictureScale2 + PictureScale
-    return PictureScale2
+    target_x = 0
+    for X in xrange(PictureScale1 * 2):
+        target_y = 0
+        for Y in xrange(PictureScale1):
+            red = screen.get_at((X, Y)).r
+            green = screen.get_at((X, Y)).g
+            blue = screen.get_at((X, Y)).b
+            PXArray[target_x + (picture_scale2 * 2), target_y + PictureScale3] = (red - red / ColourManip, green, blue / ColourManip)
+            target_y += 1
+        target_x += 1
+    picture_scale2 += PictureScale1
+    return picture_scale2
 
-def change_picture(PicChange):
+
+def change_picture(picture_change):
     """Changes the current picture displayed"""
-    screen.fill(Black)
-    screen.blit(PicChange, (0, 0))
+    screen.fill(BLACK)
+    screen.blit(picture_change, (0, 0))
     pygame.display.update()
-
-
-
-
 
 
 # Press the key and it will run the corresponding function
@@ -674,9 +663,9 @@ while Running:
         if event.type == KEYDOWN and event.key == K_s:
             ghost_effect()
         if event.type == KEYDOWN and event.key == K_c:
-            close_enough(Brown)                         # Can choose any colour using RGB value
+            close_enough(BROWN)                         # Can choose any colour using RGB value
         if event.type == KEYDOWN and event.key == K_p:
-            posterize(2)                                # Try changing the value to alter the amount of posterization
+            posterize(5)                                # Try changing the value to alter the amount of posterization
         if event.type == KEYDOWN and event.key == K_q:
             sepia_tint()
         if event.type == KEYDOWN and event.key == K_e:
@@ -692,11 +681,11 @@ while Running:
         if event.type == KEYDOWN and event.key == K_z:
             rainbow_matrix_style_z(80)                  # Tolerance, value between 0 and 255. 80 is good number for parrot
         if event.type == KEYDOWN and event.key == K_n:
-            Mirrors()
+            mirrors()
         if event.type == KEYDOWN and event.key == K_b:
-            HorizontalMirror()
+            horizontal_mirror()
         if event.type == KEYDOWN and event.key == K_h:
-            PixelatedWaterReflection()
+            pixelated_water_reflection()
         if event.type == KEYDOWN and event.key == K_o:
             PictureScale2 = 80
             PictureScale3 = 0
@@ -706,17 +695,17 @@ while Running:
                 pygame.display.update()
                 if PictureScale2 == Width / 2:
                     PictureScale2 = 0
-                    PictureScale3 = PictureScale3 + PictureScale
-                    ColourManip = ColourManip + 0.2
+                    PictureScale3 += PictureScale1
+                    ColourManip += 0.2
         if event.type == KEYDOWN and event.key == K_1:
             del PXArray
             change_picture(Picture)
             PXArray = pygame.PixelArray(screen)
         if event.type == KEYDOWN and event.key == K_2:
             del PXArray
-            screen.fill(Black)
+            screen.fill(BLACK)
             screen.blit(Picture2, (0, 0))
-            screen.blit(Picture3, (PictureScale, 0))
+            screen.blit(Picture3, (PictureScale1, 0))
             pygame.display.update()
             PXArray = pygame.PixelArray(screen)
         if event.type == KEYDOWN and event.key == K_3:
@@ -735,4 +724,3 @@ while Running:
 
 pygame.quit()
 sys.exit()
-
