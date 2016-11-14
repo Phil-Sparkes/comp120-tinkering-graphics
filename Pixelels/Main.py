@@ -4,17 +4,18 @@ import math
 from pygame.locals import *
 
 # Images
-Picture = pygame.image.load("Parrots.jpeg")
-Picture2 = pygame.image.load("PhoenixCol.png")
-Picture3 = pygame.image.load("GodotCol.png")
-Picture4 = pygame.image.load("Animu.png")
-Picture5 = pygame.image.load("MonaLisa.jpg")
-Picture6 = pygame.image.load("Stars.jpg")
+Picture = pygame.image.load("vw.jpg")
+Picture3 = pygame.image.load("stormtrooper.jpg")
+Picture4 = pygame.image.load("landscape.jpg")
+Picture5 = pygame.image.load("lights.jpg")
+Picture6 = pygame.image.load("umbrella.jpg")
+Picture7 = pygame.image.load("owl.jpg")
 
 Running = True
 pygame.init()
 
 # Used in the collage
+PictureScale = 160
 PictureScale1 = 80
 PictureScale2 = PictureScale1
 PictureScale3 = 0
@@ -28,9 +29,12 @@ screen = pygame.display.set_mode((Width, Height))
 
 # Scales the pictures to fit the screen
 Picture = pygame.transform.scale(Picture, (Width, Height))
+Picture2 = pygame.transform.scale(Picture, (PictureScale, PictureScale1))
+Picture3 = pygame.transform.scale(Picture3, (Width, Height))
 Picture4 = pygame.transform.scale(Picture4, (Width, Height))
-Picture2 = pygame.transform.scale(Picture2, (PictureScale1, PictureScale1))
-Picture3 = pygame.transform.scale(Picture3, (PictureScale1, PictureScale1))
+Picture5 = pygame.transform.scale(Picture5, (Width, Height))
+Picture6 = pygame.transform.scale(Picture6, (Width, Height))
+Picture7 = pygame.transform.scale(Picture7, (Width, Height))
 
 screen.blit(Picture, (0, 0))
 
@@ -42,6 +46,7 @@ PXArray = pygame.PixelArray(screen)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BROWN = (150, 80, 50)
+RED = (175,0,0)
 
 
 """Functions - Look at the end to see what key relates to which function"""
@@ -254,7 +259,7 @@ def close_enough(colour):
             close_brown = colour_distance_check(current_colour, colour, 150)
 
             if close_brown:
-                PXArray[X, Y] = ((red / 2), green, blue)
+                PXArray[X, Y] = (green, red, blue)
             else:
                 PXArray[X, Y] = (red, green, blue)
 
@@ -663,9 +668,9 @@ while Running:
         if event.type == KEYDOWN and event.key == K_s:
             ghost_effect()
         if event.type == KEYDOWN and event.key == K_c:
-            close_enough(BROWN)                         # Can choose any colour using RGB value
+            close_enough(RED)                         # Can choose any colour using RGB value
         if event.type == KEYDOWN and event.key == K_p:
-            posterize(5)                                # Try changing the value to alter the amount of posterization
+            posterize(2)                                # Try changing the value to alter the amount of posterization
         if event.type == KEYDOWN and event.key == K_q:
             sepia_tint()
         if event.type == KEYDOWN and event.key == K_e:
@@ -675,11 +680,11 @@ while Running:
         if event.type == KEYDOWN and event.key == K_x:
             cel_shade()
         if event.type == KEYDOWN and event.key == K_m:
-            rainbow_matrix_style(80)                    # Tolerance, value between 0 and 255. 80 is good number for parrot
+            rainbow_matrix_style(100)                    # Tolerance, value between 0 and 255. 80 is good number for parrot
         if event.type == KEYDOWN and event.key == K_f:
-            rainbow_matrix_style_fill(80)               # Tolerance, value between 0 and 255. 80 is good number for parrot
+            rainbow_matrix_style_fill(100)               # Tolerance, value between 0 and 255. 80 is good number for parrot
         if event.type == KEYDOWN and event.key == K_z:
-            rainbow_matrix_style_z(80)                  # Tolerance, value between 0 and 255. 80 is good number for parrot
+            rainbow_matrix_style_z(100)                  # Tolerance, value between 0 and 255. 80 is good number for parrot
         if event.type == KEYDOWN and event.key == K_n:
             mirrors()
         if event.type == KEYDOWN and event.key == K_b:
@@ -705,20 +710,27 @@ while Running:
             del PXArray
             screen.fill(BLACK)
             screen.blit(Picture2, (0, 0))
-            screen.blit(Picture3, (PictureScale1, 0))
             pygame.display.update()
             PXArray = pygame.PixelArray(screen)
         if event.type == KEYDOWN and event.key == K_3:
             del PXArray
-            change_picture(Picture4)
+            change_picture(Picture3)
             PXArray = pygame.PixelArray(screen)
         if event.type == KEYDOWN and event.key == K_4:
             del PXArray
-            change_picture(Picture5)
+            change_picture(Picture4)
             PXArray = pygame.PixelArray(screen)
         if event.type == KEYDOWN and event.key == K_5:
             del PXArray
+            change_picture(Picture5)
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_6:
+            del PXArray
             change_picture(Picture6)
+            PXArray = pygame.PixelArray(screen)
+        if event.type == KEYDOWN and event.key == K_7:
+            del PXArray
+            change_picture(Picture7)
             PXArray = pygame.PixelArray(screen)
         pygame.display.update()
 
