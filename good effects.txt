@@ -1,0 +1,8 @@
+Mirror = landscape
+Matrix = vw/lights
+WoodTex = vw/stormtrooper/umbrella/lights
+invert/collage/invert = vw2
+Matrix + ColourEdges = vw
+Posterize + Celshade x2 = stormtrooper
+Red to Green = VW/Owl
+Spooky = umbrella/owl
